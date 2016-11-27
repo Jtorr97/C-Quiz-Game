@@ -1,0 +1,174 @@
+What command prints something to the screen?
+cin
+cout
+char
+print
+b
+
+Which of the following categories does C++ belong to?
+Operating System
+High-level programming language
+low-level programming language
+Compiler
+b
+
+Which command is correctly written?
+cout >>
+cin <<
+cout <>
+cin >>
+d
+
+What is this called, <iostream>?
+directive
+pre-processor directive
+file
+command
+b
+
+What punctuation ends most lines of code?
+.
+;
+:
+'
+b
+
+Which of the following is a correct comment?
+*/ Comments */
+** Comment **
+/* Comment */
+{ Comment }
+c
+
+Which of the following is the boolean operator for logical-and?
+&
+|
+&&
+|&
+c
+
+Which of the following shows the correct syntax for an if statement?",
+if expression
+if {expression
+if (expression)
+expression if
+c
+
+How many times is a do while loop guaranteed to loop?
+1
+0
+Infinitely
+Variable
+a
+
+A subscipt is a(n) __________ .
+element in an array
+alternate name for an array
+number that represents the highest value stored within an array
+number that indicates the position of the particular item in an array
+d
+
+Which of the following correctly declares an array?
+int anarray[10];
+int anarray
+anarray{10};
+array anarray[10];
+a
+
+What is the index number of the last element of an array with 29 elements?
+29
+28
+0
+Programmer-defined
+b
+
+Which is not a loop structure?
+for
+do while
+while
+repeat until
+d
+
+When does the code block following while(x < 100) execute?
+When x is less than one hundred
+When x is greater than one hundred
+When x is equal to one hundred
+While it wishes
+a
+
+Most programmers use a for loop __________ .
+for every loop they write
+when a loop will not repeat
+when they do not know the exact number of times a loop will repeat
+when they know the exact number of times a loop will repeat
+d
+
+Adding 1 to a  variable is also called __________ it.
+digesting
+incrementing
+decrementing
+resetting
+b
+
+What is required to avoid falling through from one case to the next?
+end;
+break;
+Stop;
+A semicolon
+b
+
+A __________ is a variable that you set to indicate whether some event has occured.
+subscript
+banner
+counter
+flag
+d
+
+Identify the C++ compiler of Linux.
+cpp
+g++
+Borland
+vc++
+b
+
+What is the size of 'int'? 
+2
+4
+8
+Compiler dependent
+d
+
+Which data type can be used to hold a wide character in C++?
+unsigned char;
+int
+wchar
+none of the above.
+c
+
+C++ does not support the following
+Multilevel inheritance
+Hierarchical inheritance
+Hybrid inheritance
+None of the above.
+d
+
+Which is not a protection level provided by classes in C++?
+protected
+hidden
+private
+public
+b
+
+What purpose do classes serve?
+data encapsulation
+providing a convenient way of modeling real-world objects
+simplifying code reuse
+all of the above
+d
+
+Who developed the C++ language?
+Steve Jobs
+Linus Torvalds
+Bill Gates
+Bjarne Stroustrup
+d

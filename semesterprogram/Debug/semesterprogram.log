@@ -1,0 +1,5 @@
+﻿  c-quiz.cpp
+  .NETFramework,Version=v4.5.2.AssemblyAttributes.cpp
+  c-quiz.obj : /DEBUG:FASTLINK is not supported when managed code is present; restarting link with /DEBUG:FULL
+  semesterprogram.vcxproj -> G:\C++ Projects\semesterprogram\Debug\semesterprogram.exe
+  semesterprogram.vcxproj -> G:\C++ Projects\semesterprogram\Debug\semesterprogram.pdb (Partial PDB)
