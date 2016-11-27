@@ -1,6 +1,6 @@
 // c-quiz.cpp : This is a program for a quiz game which assess's the user's knowledge of C++.
 // Questions are from JE Programming Logic and Design 8th edition, and http://www.cprogramming.com/quiz/?sb=14px
-// This program will utilize skills learned in the Fall 2016 Semester in COSC 1315
+// This program will utilize skills learned in the Fall 2016 Semester in COSC 1315 and outside of class.
 // Written by: Joshua Torres
 
 #include <iostream>
