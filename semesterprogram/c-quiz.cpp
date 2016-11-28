@@ -11,7 +11,9 @@
 
 namespace {
 	const int s_questionScore = 4;  // Points rewarded for each correct answer.
-	const int s_failingGrade = 69;
+	const int s_failingGrade = 69;	// Failing grade. 
+	const char* winMessage = "Correct!\n\n";
+	const char* loseMessage = "Sorry, the correct answer was ";
 }
 
 class Question {
@@ -20,7 +22,7 @@ public:
 	friend std::istream& operator >> (std::istream& is, Question& ques);
 
 private:
-	std::string Question_Text;
+	std::string question_text;
 	std::string answer_1;
 	std::string answer_2;
 	std::string answer_3;
@@ -58,7 +60,7 @@ int main()
 
 	int total = 0; //Total score.
 
-	for (size_t i = 0; i<questions.size(); ++i)
+	for (size_t i = 0; i < questions.size(); ++i)
 	{
 		total += questions[i].askQuestion(i + 1);
 		std::cout << "Total score = " << total << '\n';
@@ -98,7 +100,7 @@ std::istream& operator >> (std::istream& is, Question& ques)
 			continue;
 		break;
 	}
-	ques.Question_Text = line;
+	ques.question_text = line;
 	getline(is, ques.answer_1);
 	getline(is, ques.answer_2);
 	getline(is, ques.answer_3);
@@ -120,34 +122,24 @@ int Question::askQuestion(int num)
 	std::cout << "\n";
 	if (num > 0)
 		std::cout << num << ". ";
-	std::cout << Question_Text << "\n";
+	std::cout << question_text << "\n";
 	std::cout << "a. " << answer_1 << "\n";
 	std::cout << "b. " << answer_2 << "\n";
 	std::cout << "c. " << answer_3 << "\n";
 	std::cout << "d. " << answer_4 << "\n\n";
 
-	char guess;
 	//Ask user for their answer.
+	char guess;
 	std::cout << "What is your answer?\n";
 	std::cin >> guess;
 
 	if (guess == correct_answer) {
-		std::cout << "Correct!\n\n";
+		std::cout << winMessage;
 		score = s_questionScore;
-		std::cout << "Press enter to continue.\n";
-		std::cin.get();
-		std::cin.ignore();
 	}
 	else
 	{
-		std::cout << "Sorry, you're wrong... " << "The correct answer is " << correct_answer << ".\n\n";
-		std::cout << "Press enter to continue." << "\n";
-		std::cin.get();
-		std::cin.ignore();
+		std::cout << loseMessage << correct_answer << ".\n\n";
 	}
-
 	return score;
-
 }
-
-
