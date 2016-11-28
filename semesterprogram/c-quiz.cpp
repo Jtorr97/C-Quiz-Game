@@ -9,7 +9,10 @@
 #include <sstream>
 #include <vector>
 
-const int s_questionScore = 4;  // Points rewarded for each correct answer.
+namespace {
+	const int s_questionScore = 4;  // Points rewarded for each correct answer.
+	const int s_failingGrade = 69;
+}
 
 class Question {
 public:
@@ -25,7 +28,7 @@ private:
 	char correct_answer;
 };
 
-void load(std::istream& is, std::vector<Question>& vques);
+void load(std::istream& is, std::vector<Question>& questions);
 void load_sstream(std::istringstream & ss);
 
 int main()
@@ -62,7 +65,7 @@ int main()
 	}
 
 	// Pass or fail quiz message. 
-	if (total > 69) {
+	if (total > s_failingGrade) {
 		std::cout << R"(
 
 __  __               ____                           ____
@@ -104,11 +107,11 @@ std::istream& operator >> (std::istream& is, Question& ques)
 	return is;
 }
 
-void load(std::istream& is, std::vector<Question>& vques)
+void load(std::istream& is, std::vector<Question>& questions)
 {
 	Question q;
 	while (is >> q)
-		vques.push_back(q);
+		questions.push_back(q);
 }
 
 int Question::askQuestion(int num)
@@ -121,8 +124,7 @@ int Question::askQuestion(int num)
 	std::cout << "a. " << answer_1 << "\n";
 	std::cout << "b. " << answer_2 << "\n";
 	std::cout << "c. " << answer_3 << "\n";
-	std::cout << "d. " << answer_4 << "\n";
-	std::cout << "\n";
+	std::cout << "d. " << answer_4 << "\n\n";
 
 	char guess;
 	//Ask user for their answer.
@@ -130,20 +132,15 @@ int Question::askQuestion(int num)
 	std::cin >> guess;
 
 	if (guess == correct_answer) {
-		std::cout << "\n";
-		std::cout << "Correct!" << "\n";
+		std::cout << "Correct!\n\n";
 		score = s_questionScore;
-		std::cout << "\n";
-		std::cout << "Press enter to continue." << "\n";
+		std::cout << "Press enter to continue.\n";
 		std::cin.get();
 		std::cin.ignore();
 	}
 	else
 	{
-		std::cout << "\n";
-		std::cout << "Sorry, you're wrong..." << "\n";
-		std::cout << "The correct answer is " << correct_answer << "." << "\n";
-		std::cout << "\n";
+		std::cout << "Sorry, you're wrong... " << "The correct answer is " << correct_answer << ".\n\n";
 		std::cout << "Press enter to continue." << "\n";
 		std::cin.get();
 		std::cin.ignore();
@@ -152,4 +149,5 @@ int Question::askQuestion(int num)
 	return score;
 
 }
+
 
