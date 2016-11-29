@@ -12,8 +12,8 @@
 namespace {
 	const int s_questionScore = 4;  // Points rewarded for each correct answer.
 	const int s_failingGrade = 69;	// Failing grade. 
-	const char* winMessage = "Correct!\n\n";
-	const char* loseMessage = "Sorry, the correct answer was ";
+	const char* s_winMessage = "Correct!\n\n";
+	const char* s_loseMessage = "Sorry, the correct answer was ";
 }
 
 class Question {
@@ -32,27 +32,17 @@ private:
 
 void load(std::istream& is, std::vector<Question>& questions);
 void load_sstream(std::istringstream & ss);
+void passMessage();
+void failMessage();
+void welcomeMessage();
 
 int main()
 {
-	/*Program Title designed with an ASCII art generator.
-	Link: http://patorjk.com/software/taag/#p=display&f=Graffiti&t=Type%20Something%20 */
-	std::cout << R"(
- _    _      _                            _          _   _            _____              _____       _     
-| |  | |    | |                          | |        | | | |          /  __ \ _     _    |  _  |     (_)    
-| |  | | ___| | ___ ___  _ __ ___   ___  | |_ ___   | |_| |__   ___  | /  \/| |_ _| |_  | | | |_   _ _ ____
-| |/\| |/ _ \ |/ __/ _ \| '_ ` _ \ / _ \ | __/ _ \  | __| '_ \ / _ \ | |  |_   _|_   _| | | | | | | | |_  /
-\  /\  /  __/ | (_| (_) | | | | | |  __/ | || (_) | | |_| | | |  __/ | \__/\|_|   |_|   \ \/' / |_| | |/ / 
- \/  \/ \___|_|\___\___/|_| |_| |_|\___|  \__\___/   \__|_| |_|\___|  \____/             \_/\_\\__,_|_/___|
-
-----------------------------------------------By: Joshua Torres---------------------------------------------
-    )" << "\n";
-
+	welcomeMessage(); // Print welcome ASCII Art
 	std::cout << "Press enter to start...\n";
 	std::cin.get();
 
 	std::ifstream fin("quiz_data.txt"); //Load questions from .txt file
-
 	std::vector<Question> questions;
 	load(fin, questions);
 
@@ -67,28 +57,17 @@ int main()
 	}
 
 	// Pass or fail quiz message. 
-	if (total > s_failingGrade) {
-		std::cout << R"(
-
-__  __               ____                           ____
-\ \/ /___  __  __   / __ \____ ______________  ____/ / /
- \  / __ \/ / / /  / /_/ / __ `/ ___/ ___/ _ \/ __  / / 
- / / /_/ / /_/ /  / ____/ /_/ (__  |__  )  __/ /_/ /_/  
-/_/\____/\__,_/  /_/    \__,_/____/____/\___/\__,_(_)   
-
-    )" << "\n";
+	if (total > s_failingGrade) 
+		passMessage(); // Print pass/win ASCII Art.
 		std::cout << "\n";
 		std::cin.get();
 		std::cin.ignore();
 		return 0;
-	}
-	else
-	{
-		std::cout << "You failed... Sorry, better luck next time.\n\n";
-	}
-	std::cin.get();
-	std::cin.ignore();
-	return 0;
+	if (total < s_failingGrade)
+		failMessage(); //Print failure message.
+		std::cin.get();
+		std::cin.ignore();
+		return 0;
 }
 
 std::istream& operator >> (std::istream& is, Question& ques)
@@ -129,17 +108,51 @@ int Question::askQuestion(int num)
 	std::cout << "d. " << answer_4 << "\n\n";
 
 	//Ask user for their answer.
-	char guess;
+	char guess = ' ';
 	std::cout << "What is your answer?\n";
 	std::cin >> guess;
 
 	if (guess == correct_answer) {
-		std::cout << winMessage;
+		std::cout << s_winMessage;
 		score = s_questionScore;
 	}
 	else
 	{
-		std::cout << loseMessage << correct_answer << ".\n\n";
+		std::cout << s_loseMessage << correct_answer << ".\n\n";
 	}
 	return score;
+}
+
+void passMessage()
+{
+	std::cout << R"(
+
+__  __               ____                           ____
+\ \/ /___  __  __   / __ \____ ______________  ____/ / /
+ \  / __ \/ / / /  / /_/ / __ `/ ___/ ___/ _ \/ __  / / 
+ / / /_/ / /_/ /  / ____/ /_/ (__  |__  )  __/ /_/ /_/  
+/_/\____/\__,_/  /_/    \__,_/____/____/\___/\__,_(_)   
+
+    )" << "\n";
+}
+
+void failMessage()
+{
+	std::cout << "You failed... Sorry, better luck next time.\n\n";
+}
+
+void welcomeMessage()
+{
+	/*Program Title designed with an ASCII art generator.
+	Link: http://patorjk.com/software/taag/#p=display&f=Graffiti&t=Type%20Something%20 */
+	std::cout << R"(
+ _    _      _                            _          _   _            _____              _____       _     
+| |  | |    | |                          | |        | | | |          /  __ \ _     _    |  _  |     (_)    
+| |  | | ___| | ___ ___  _ __ ___   ___  | |_ ___   | |_| |__   ___  | /  \/| |_ _| |_  | | | |_   _ _ ____
+| |/\| |/ _ \ |/ __/ _ \| '_ ` _ \ / _ \ | __/ _ \  | __| '_ \ / _ \ | |  |_   _|_   _| | | | | | | | |_  /
+\  /\  /  __/ | (_| (_) | | | | | |  __/ | || (_) | | |_| | | |  __/ | \__/\|_|   |_|   \ \/' / |_| | |/ / 
+ \/  \/ \___|_|\___\___/|_| |_| |_|\___|  \__\___/   \__|_| |_|\___|  \____/             \_/\_\\__,_|_/___|
+
+----------------------------------------------By: Joshua Torres---------------------------------------------
+    )" << "\n";
 }
