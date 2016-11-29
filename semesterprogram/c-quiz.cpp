@@ -47,53 +47,60 @@ int main()
 	}
 	else
 	{
-		std::cout << "Error: Unable to open file.";
+		std::cout << "Error: File not found.\n";
 	}
-	std::cout << "Press enter to start the quiz..\n";
 	std::cin.get();
 
 	std::ifstream fin("quiz_data.txt"); //Load questions from .txt file
-	std::vector<Question> questions;
-	load(fin, questions);
-
-	std::cout << "Number of questions = " << questions.size() << '\n';
-
-	int total = 0; //Total score.
-
-	for (size_t i = 0; i < questions.size(); ++i)
+	if (fin.is_open())
 	{
-		total += questions[i].askQuestion(i + 1);
-		std::cout << "Total score = " << total << '\n';
-	}
+		std::vector<Question> questions;
+		load(fin, questions);
 
-	// Pass or fail quiz message. 
-	if (total > s_failingGrade) {
-		std::string line;
-		std::ifstream myfile("quiz_passed.txt");
-		if (myfile.is_open())
+		std::cout << "Number of questions = " << questions.size() << '\n';
+
+		int total = 0; //Total score.
+
+		for (size_t i = 0; i < questions.size(); ++i)
 		{
-			while (getline(myfile, line))
+			total += questions[i].askQuestion(i + 1);
+			std::cout << "Total score = " << total << '\n';
+		}
+
+		// Pass or fail quiz message. 
+		if (total > s_failingGrade) {
+			std::string line;
+			std::ifstream myfile("quiz_passed.txt");
+			if (myfile.is_open())
 			{
-				std::cout << line << '\n';
+				while (getline(myfile, line))
+				{
+					std::cout << line << '\n';
+				}
+				myfile.close();
 			}
-			myfile.close();
+			else
+			{
+				std::cout << "Error: File not found.\n";
+			}
+			std::cin.get();
+			return 0;
 		}
 		else
 		{
-			std::cout << "Error: Unable to open file.";
+			std::cout << s_quizFailed; // Print failure message.
+			std::cin.get();
+			return 0;
 		}
-		std::cin.get();
-		std::cin.ignore();
-		return 0;
 	}
 	else
 	{
-		std::cout << s_quizFailed; // Print failure message.
-		std::cin.get();
-		std::cin.ignore();
-		return 0;
+		std::cout << "Error: File not found.\n";
 	}
+	std::cin.get();
+	return 0;
 }
+	
 
 std::istream& operator >> (std::istream& is, Question& ques)
 {
@@ -151,3 +158,4 @@ int Question::askQuestion(int num)
 	}
 	return score;
 }
+
