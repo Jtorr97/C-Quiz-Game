@@ -8,6 +8,8 @@
 #include <string>
 #include <sstream>
 #include <vector>
+#include "ASCIIart.h"
+
 
 namespace {
 	const int s_questionScore = 4;  // Points rewarded for each correct answer.
@@ -32,14 +34,11 @@ private:
 
 void load(std::istream& is, std::vector<Question>& questions);
 void load_sstream(std::istringstream & ss);
-void passMessage();
-void failMessage();
-void welcomeMessage();
 
 int main()
 {
-	welcomeMessage(); // Print welcome ASCII Art
-	std::cout << "Press enter to start...\n";
+	std::cout << welcomeMessage << "\n"; // Print welcome ASCII Art
+	std::cout << "Press enter to start the quiz..";
 	std::cin.get();
 
 	std::ifstream fin("quiz_data.txt"); //Load questions from .txt file
@@ -57,17 +56,19 @@ int main()
 	}
 
 	// Pass or fail quiz message. 
-	if (total > s_failingGrade) 
-		passMessage(); // Print pass/win ASCII Art.
-		std::cout << "\n";
+	if (total > s_failingGrade) {
+		std::cout << passMessage; // Print pass/win ASCII Art.
 		std::cin.get();
 		std::cin.ignore();
 		return 0;
-	if (total < s_failingGrade)
-		failMessage(); //Print failure message.
+	}
+	else
+	{
+		std::cout << failMessage; // Print failure message.
 		std::cin.get();
 		std::cin.ignore();
 		return 0;
+	}
 }
 
 std::istream& operator >> (std::istream& is, Question& ques)
@@ -121,38 +122,4 @@ int Question::askQuestion(int num)
 		std::cout << s_loseMessage << correct_answer << ".\n\n";
 	}
 	return score;
-}
-
-void passMessage()
-{
-	std::cout << R"(
-
-__  __               ____                           ____
-\ \/ /___  __  __   / __ \____ ______________  ____/ / /
- \  / __ \/ / / /  / /_/ / __ `/ ___/ ___/ _ \/ __  / / 
- / / /_/ / /_/ /  / ____/ /_/ (__  |__  )  __/ /_/ /_/  
-/_/\____/\__,_/  /_/    \__,_/____/____/\___/\__,_(_)   
-
-    )" << "\n";
-}
-
-void failMessage()
-{
-	std::cout << "You failed... Sorry, better luck next time.\n\n";
-}
-
-void welcomeMessage()
-{
-	/*Program Title designed with an ASCII art generator.
-	Link: http://patorjk.com/software/taag/#p=display&f=Graffiti&t=Type%20Something%20 */
-	std::cout << R"(
- _    _      _                            _          _   _            _____              _____       _     
-| |  | |    | |                          | |        | | | |          /  __ \ _     _    |  _  |     (_)    
-| |  | | ___| | ___ ___  _ __ ___   ___  | |_ ___   | |_| |__   ___  | /  \/| |_ _| |_  | | | |_   _ _ ____
-| |/\| |/ _ \ |/ __/ _ \| '_ ` _ \ / _ \ | __/ _ \  | __| '_ \ / _ \ | |  |_   _|_   _| | | | | | | | |_  /
-\  /\  /  __/ | (_| (_) | | | | | |  __/ | || (_) | | |_| | | |  __/ | \__/\|_|   |_|   \ \/' / |_| | |/ / 
- \/  \/ \___|_|\___\___/|_| |_| |_|\___|  \__\___/   \__|_| |_|\___|  \____/             \_/\_\\__,_|_/___|
-
-----------------------------------------------By: Joshua Torres---------------------------------------------
-    )" << "\n";
 }
