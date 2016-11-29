@@ -7,13 +7,13 @@
 #include <string>
 #include <sstream>
 #include <vector>
-#include "ASCIIart.h"
 
 namespace {
 	const int s_questionScore = 4;  // Points rewarded for each correct answer.
 	const int s_failingGrade = 69;	// Failing grade. 
 	const char* s_winMessage = "Correct!\n\n";
 	const char* s_loseMessage = "Sorry, the correct answer was ";
+	const char* s_quizFailed = "Sorry, you failed... Better luck next time.";
 }
 
 class Question {
@@ -35,10 +35,22 @@ void load_sstream(std::istringstream & ss);
 
 int main()
 {
-	std::cout << welcomeMessage << "\n"; // Print welcome ASCII Art
+	std::string line;
+	std::ifstream myfile("welcome.txt");
+	if (myfile.is_open())
+	{
+		while (getline(myfile, line))
+		{
+			std::cout << line << '\n';
+		}
+		myfile.close();
+	}
+	else
+	{
+		std::cout << "Error: Unable to open file.";
+	}
 	std::cout << "Press enter to start the quiz..\n";
 	std::cin.get();
-	system("cls");
 
 	std::ifstream fin("quiz_data.txt"); //Load questions from .txt file
 	std::vector<Question> questions;
@@ -56,14 +68,27 @@ int main()
 
 	// Pass or fail quiz message. 
 	if (total > s_failingGrade) {
-		std::cout << passMessage; // Print pass/win ASCII Art.
+		std::string line;
+		std::ifstream myfile("quiz_passed.txt");
+		if (myfile.is_open())
+		{
+			while (getline(myfile, line))
+			{
+				std::cout << line << '\n';
+			}
+			myfile.close();
+		}
+		else
+		{
+			std::cout << "Error: Unable to open file.";
+		}
 		std::cin.get();
 		std::cin.ignore();
 		return 0;
 	}
 	else
 	{
-		std::cout << failMessage; // Print failure message.
+		std::cout << s_quizFailed; // Print failure message.
 		std::cin.get();
 		std::cin.ignore();
 		return 0;
@@ -105,7 +130,7 @@ int Question::askQuestion(int num)
 	std::cout << "a. " << answer_1 << "\n";
 	std::cout << "b. " << answer_2 << "\n";
 	std::cout << "c. " << answer_3 << "\n";
-	std::cout << "d. " << answer_4 << "\n\n";
+	std::cout << "d. " << answer_4 << "\n";
 
 	//Ask user for their answer.
 	char guess = ' ';
@@ -117,15 +142,12 @@ int Question::askQuestion(int num)
 		score = s_questionScore;
 		std::cin.get();
 		std::cin.ignore();
-		system("cls");
 	}
 	else
 	{
 		std::cout << s_loseMessage << correct_answer << ".\n\n";
 		std::cin.get();
 		std::cin.ignore();
-		system("cls");
 	}
 	return score;
 }
-
