@@ -2,14 +2,12 @@
 // Questions are from JE Programming Logic and Design 8th edition, and http://www.cprogramming.com/quiz/?sb=14px
 // This program will utilize skills learned in the Fall 2016 Semester in COSC 1315 and outside of class.
 // Written by: Joshua Torres
-
 #include <iostream>
 #include <fstream>
 #include <string>
 #include <sstream>
 #include <vector>
 #include "ASCIIart.h"
-
 
 namespace {
 	const int s_questionScore = 4;  // Points rewarded for each correct answer.
@@ -38,8 +36,9 @@ void load_sstream(std::istringstream & ss);
 int main()
 {
 	std::cout << welcomeMessage << "\n"; // Print welcome ASCII Art
-	std::cout << "Press enter to start the quiz..";
+	std::cout << "Press enter to start the quiz..\n";
 	std::cin.get();
+	system("cls");
 
 	std::ifstream fin("quiz_data.txt"); //Load questions from .txt file
 	std::vector<Question> questions;
@@ -116,10 +115,17 @@ int Question::askQuestion(int num)
 	if (guess == correct_answer) {
 		std::cout << s_winMessage;
 		score = s_questionScore;
+		std::cin.get();
+		std::cin.ignore();
+		system("cls");
 	}
 	else
 	{
 		std::cout << s_loseMessage << correct_answer << ".\n\n";
+		std::cin.get();
+		std::cin.ignore();
+		system("cls");
 	}
 	return score;
 }
+
