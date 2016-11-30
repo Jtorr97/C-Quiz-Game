@@ -10,7 +10,7 @@
 
 namespace {
 	const int s_questionScore = 4;  // Points rewarded for each correct answer.
-	const int s_failingGrade = 69;	// Failing grade. 
+	const int s_failingGrade = 69;	
 	const char* s_winMessage = "Correct!\n\n";
 	const char* s_loseMessage = "Sorry, the correct answer was ";
 	const char* s_quizFailed = "Sorry, you failed... Better luck next time.";
@@ -40,7 +40,8 @@ int main()
 {
 	printASCIIart(std::ifstream ("welcome.txt"));
 	generateQuiz(std::ifstream ("quiz_data.txt")); //Load questions from .txt file
-	
+
+	return 0;
 }
 
 std::istream& operator >> (std::istream& is, Question& ques)
@@ -150,3 +151,4 @@ void printASCIIart(std::ifstream myfile)
 		std::cout << "Error: File not found!\n";
 	}
 }
+
