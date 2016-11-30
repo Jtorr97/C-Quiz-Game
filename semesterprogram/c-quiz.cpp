@@ -30,25 +30,13 @@ private:
 	char correct_answer;
 };
 
+void printASCIIart(std::ifstream myfile);
 void load(std::istream& is, std::vector<Question>& questions);
 void load_sstream(std::istringstream & ss);
 
 int main()
 {
-	std::string line;
-	std::ifstream myfile("welcome.txt");
-	if (myfile.is_open())
-	{
-		while (getline(myfile, line))
-		{
-			std::cout << line << '\n';
-		}
-		myfile.close();
-	}
-	else
-	{
-		std::cout << "Error: File not found.\n";
-	}
+	printASCIIart(std::ifstream ("welcome.txt"));
 	std::cin.get();
 
 	std::ifstream fin("quiz_data.txt"); //Load questions from .txt file
@@ -69,20 +57,7 @@ int main()
 
 		// Pass or fail quiz message. 
 		if (total > s_failingGrade) {
-			std::string line;
-			std::ifstream myfile("quiz_passed.txt");
-			if (myfile.is_open())
-			{
-				while (getline(myfile, line))
-				{
-					std::cout << line << '\n';
-				}
-				myfile.close();
-			}
-			else
-			{
-				std::cout << "Error: File not found.\n";
-			}
+			printASCIIart(std::ifstream("quiz_passed.txt"));
 			std::cin.get();
 			return 0;
 		}
@@ -159,3 +134,19 @@ int Question::askQuestion(int num)
 	return score;
 }
 
+void printASCIIart(std::ifstream myfile)
+{
+	std::string line;
+	if (myfile.is_open())
+	{
+		while (getline(myfile, line))
+		{
+			std::cout << line << '\n';
+		}
+		myfile.close();
+	}
+	else
+	{
+		std::cout << "Error: File not found.\n";
+	}
+}
