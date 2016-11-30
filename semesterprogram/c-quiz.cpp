@@ -14,6 +14,7 @@ namespace {
 	const char* s_winMessage = "Correct!\n\n";
 	const char* s_loseMessage = "Sorry, the correct answer was ";
 	const char* s_quizFailed = "Sorry, you failed... Better luck next time.";
+	const char* s_promptAnswer = "What is your answer?\n\n";
 }
 
 class Question {
@@ -31,56 +32,21 @@ private:
 };
 
 void printASCIIart(std::ifstream myfile);
+void generateQuiz(std::ifstream fin);
 void load(std::istream& is, std::vector<Question>& questions);
 void load_sstream(std::istringstream & ss);
 
 int main()
 {
 	printASCIIart(std::ifstream ("welcome.txt"));
-	std::cin.get();
-
-	std::ifstream fin("quiz_data.txt"); //Load questions from .txt file
-	if (fin.is_open())
-	{
-		std::vector<Question> questions;
-		load(fin, questions);
-
-		std::cout << "Number of questions = " << questions.size() << '\n';
-
-		int total = 0; //Total score.
-
-		for (size_t i = 0; i < questions.size(); ++i)
-		{
-			total += questions[i].askQuestion(i + 1);
-			std::cout << "Total score = " << total << '\n';
-		}
-
-		// Pass or fail quiz message. 
-		if (total > s_failingGrade) {
-			printASCIIart(std::ifstream("quiz_passed.txt"));
-			std::cin.get();
-			return 0;
-		}
-		else
-		{
-			std::cout << s_quizFailed; // Print failure message.
-			std::cin.get();
-			return 0;
-		}
-	}
-	else
-	{
-		std::cout << "Error: File not found.\n";
-	}
-	std::cin.get();
-	return 0;
-}
+	generateQuiz(std::ifstream ("quiz_data.txt")); //Load questions from .txt file
 	
+}
 
 std::istream& operator >> (std::istream& is, Question& ques)
 {
 	std::string line;
-	while (getline(is, line))
+	while (std::getline(is, line))
 	{
 		if (line.size() == 0)
 			continue;
@@ -116,7 +82,7 @@ int Question::askQuestion(int num)
 
 	//Ask user for their answer.
 	char guess = ' ';
-	std::cout << "What is your answer?\n";
+	std::cout << s_promptAnswer;
 	std::cin >> guess;
 
 	if (guess == correct_answer) {
@@ -134,6 +100,39 @@ int Question::askQuestion(int num)
 	return score;
 }
 
+void generateQuiz(std::ifstream fin)
+{
+	if (fin.is_open())
+	{
+		std::vector<Question> questions;
+		load(fin, questions);
+
+		std::cout << "Number of questions = " << questions.size() << '\n';
+
+		int total = 0; //Total score.
+
+		for (size_t i = 0; i < questions.size(); ++i)
+		{
+			total += questions[i].askQuestion(i + 1);
+			std::cout << "Total score = " << total << '\n';
+		}
+
+		if (total > s_failingGrade) {
+			printASCIIart(std::ifstream("quiz_passed.txt"));
+		}
+		else
+		{
+			std::cout << s_quizFailed; 
+			std::cin.get();
+		}
+	}
+	else
+	{
+		std::cout << "Error: File not found.\n";
+	}
+	std::cin.get();
+}
+
 void printASCIIart(std::ifstream myfile)
 {
 	std::string line;
@@ -144,9 +143,10 @@ void printASCIIart(std::ifstream myfile)
 			std::cout << line << '\n';
 		}
 		myfile.close();
+		std::cin.get();
 	}
 	else
 	{
-		std::cout << "Error: File not found.\n";
+		std::cout << "Error: File not found!\n";
 	}
 }
