@@ -1,7 +1,7 @@
 // c-quiz.cpp : This is a program for a quiz game which assess's the user's knowledge of C++.
 // Questions are from JE Programming Logic and Design 8th edition, and http://www.cprogramming.com/quiz/?sb=14px
 // This program will utilize skills learned in the Fall 2016 Semester in COSC 1315 and outside of class.
-// Written by: Joshua Torres
+// Written by: Joshua Torres.
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -44,6 +44,60 @@ int main()
 	generateQuiz(std::ifstream ("quiz_data.txt")); //Load questions from .txt file
 
 	return 0;
+}
+
+void printASCIIart(std::ifstream myfile)
+{
+	std::string line;
+	if (myfile.is_open())
+	{
+		while (getline(myfile, line))
+		{
+			std::cout << line << '\n';
+		}
+		myfile.close();
+		std::cin.get();
+	}
+	else
+	{
+		std::cout << "Error: File not found!\n";
+	}
+}
+
+void generateQuiz(std::ifstream fin)
+{
+	if (fin.is_open())
+	{
+		std::vector<Question> questions;
+		load(fin, questions);
+		std::random_device rd;
+		std::mt19937 randomGenerator(rd());
+		std::shuffle(questions.begin(), questions.end(), randomGenerator);
+
+		int total = 0; //Total score.
+
+		for (size_t i = 0; i < s_numQuestions; ++i)
+		{
+			total += questions[i].askQuestion(i + 1);
+		}
+
+		if (total >= s_lowPassingGrade) {
+			std::cout << "\n\n";
+			std::cout << "You scored " << total << " out of 100!\n";
+			printASCIIart(std::ifstream("quiz_passed.txt"));
+		}
+		else
+		{
+			std::cout << "\n\n";
+			std::cout << "You scored " << total << " out of 100...\n";
+			std::cout << s_quizFailed;
+		}
+	}
+	else
+	{
+		std::cout << "Error: File not found!\n";
+	}
+	std::cin.get();
 }
 
 std::istream& operator >> (std::istream& is, Question& ques)
@@ -101,58 +155,4 @@ int Question::askQuestion(int num)
 		std::cin.get();
 	}
 	return score;
-}
-
-void generateQuiz(std::ifstream fin)
-{
-	if (fin.is_open())
-	{
-		std::vector<Question> questions;
-		load(fin, questions);
-		std::random_device rd;
-		std::mt19937 randomGenerator(rd());
-		std::shuffle(questions.begin(), questions.end(), randomGenerator);
-
-		int total = 0; //Total score.
-
-		for (size_t i = 0; i < s_numQuestions; ++i)
-		{
-			total += questions[i].askQuestion(i + 1);
-		}
-
-		if (total >= s_lowPassingGrade) {
-			std::cout << "\n\n";
-			std::cout << "You scored " << total << " out of 100!\n";
-			printASCIIart(std::ifstream("quiz_passed.txt"));
-		}
-		else
-		{	
-			std::cout << "\n\n";
-			std::cout << "You scored " << total << " out of 100...\n";
-			std::cout << s_quizFailed; 
-		}
-	}
-	else
-	{
-		std::cout << "Error: File not found!\n";
-	}
-	std::cin.get();
-}
-
-void printASCIIart(std::ifstream myfile)
-{
-	std::string line;
-	if (myfile.is_open())
-	{
-		while (getline(myfile, line))
-		{
-			std::cout << line << '\n';
-		}
-		myfile.close();
-		std::cin.get();
-	}
-	else
-	{
-		std::cout << "Error: File not found!\n";
-	}
 }
