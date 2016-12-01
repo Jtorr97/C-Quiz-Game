@@ -5,9 +5,10 @@
 \  /\  /  __/ | (_| (_) | | | | | |  __/ | || (_) | | |_| | | |  __/ | \__/\|_|   |_|   \ \/' / |_| | |/ / 
  \/  \/ \___|_|\___\___/|_| |_| |_|\___|  \__\___/   \__|_| |_|\___|  \____/             \_/\_\\__,_|_/___|
 
-----------------------------------------------By: Joshua Torres---------------------------------------------
-This is a short quiz that will test some basic and fundamental knowledge of the C++ programming language. 
-This quiz is multiple choice with 25 questions with answer choices a, b, c, and d. For each question, 
+---------------------------------------------By: Joshua Torres---------------------------------------------
+This is a short quiz that will test basic and fundamental knowledge of the C++ programming language. 
+This quiz is multiple choice with 10 questions with answer choices a, b, c, and d. For each question, 
 input your answer and press enter, and after answering press enter again to continue to the next question. 
 
-Press enter to start the quiz!
+				        Press enter to start the quiz!
+-----------------------------------------------------------------------------------------------------------
