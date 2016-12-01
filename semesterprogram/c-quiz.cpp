@@ -7,10 +7,13 @@
 #include <string>
 #include <sstream>
 #include <vector>
+#include <algorithm>
+#include <ctime>
+#include <random>
 
 namespace {
-	const int s_questionScore = 4;  // Points rewarded for each correct answer.
-	const int s_failingGrade = 69;	
+	const int s_questionScore = 10;  // Points rewarded for each correct answer.
+	const int s_lowPassingGrade = 70;	
 	const char* s_winMessage = "Correct!\n\n";
 	const char* s_loseMessage = "Sorry, the correct answer was ";
 	const char* s_quizFailed = "Sorry, you failed... Better luck next time.";
@@ -90,13 +93,11 @@ int Question::askQuestion(int num)
 		std::cout << s_winMessage;
 		score = s_questionScore;
 		std::cin.get();
-		std::cin.ignore();
 	}
 	else
 	{
 		std::cout << s_loseMessage << correct_answer << ".\n\n";
 		std::cin.get();
-		std::cin.ignore();
 	}
 	return score;
 }
@@ -107,18 +108,18 @@ void generateQuiz(std::ifstream fin)
 	{
 		std::vector<Question> questions;
 		load(fin, questions);
-
-		std::cout << "Number of questions = " << questions.size() << '\n';
+		std::mt19937 random_engine(std::time(nullptr));
+		std::shuffle(questions.begin(), questions.end(), random_engine);
 
 		int total = 0; //Total score.
 
-		for (size_t i = 0; i < questions.size(); ++i)
+		for (size_t i = 0; i < 10; ++i)
 		{
 			total += questions[i].askQuestion(i + 1);
 			std::cout << "Total score = " << total << '\n';
 		}
 
-		if (total > s_failingGrade) {
+		if (total >= s_lowPassingGrade) {
 			printASCIIart(std::ifstream("quiz_passed.txt"));
 		}
 		else
@@ -129,7 +130,7 @@ void generateQuiz(std::ifstream fin)
 	}
 	else
 	{
-		std::cout << "Error: File not found.\n";
+		std::cout << "Error: File not found!\n";
 	}
 	std::cin.get();
 }
@@ -151,4 +152,3 @@ void printASCIIart(std::ifstream myfile)
 		std::cout << "Error: File not found!\n";
 	}
 }
-
