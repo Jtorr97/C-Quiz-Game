@@ -11,6 +11,7 @@
 *.vcproj.vspscc
 *.vcxproj.vspscc
 *.dll
+
 Debug/
 Release/
 Public/
