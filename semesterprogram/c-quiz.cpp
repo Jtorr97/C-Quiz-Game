@@ -8,16 +8,16 @@
 #include <sstream>
 #include <vector>
 #include <algorithm>
-#include <ctime>
 #include <random>
 
 namespace {
 	const int s_questionScore = 10;  // Points rewarded for each correct answer.
 	const int s_lowPassingGrade = 70;	
-	const char* s_winMessage = "Correct!\n\n";
-	const char* s_loseMessage = "Sorry, the correct answer was ";
+	const int s_numQuestions = 10; 
+	const char* s_winMessage = "Correct!\n";
+	const char* s_loseMessage = "Incorrect, the correct answer was ";
 	const char* s_quizFailed = "Sorry, you failed... Better luck next time.";
-	const char* s_promptAnswer = "What is your answer?\n\n";
+	const char* s_promptAnswer = "What is your answer?\n";
 }
 
 class Question {
@@ -37,7 +37,6 @@ private:
 void printASCIIart(std::ifstream myfile);
 void generateQuiz(std::ifstream fin);
 void load(std::istream& is, std::vector<Question>& questions);
-void load_sstream(std::istringstream & ss);
 
 int main()
 {
@@ -93,10 +92,12 @@ int Question::askQuestion(int num)
 		std::cout << s_winMessage;
 		score = s_questionScore;
 		std::cin.get();
+		std::cin.get();
 	}
 	else
 	{
-		std::cout << s_loseMessage << correct_answer << ".\n\n";
+		std::cout << s_loseMessage << correct_answer << ".\n";
+		std::cin.get();
 		std::cin.get();
 	}
 	return score;
@@ -108,22 +109,25 @@ void generateQuiz(std::ifstream fin)
 	{
 		std::vector<Question> questions;
 		load(fin, questions);
-		std::mt19937 random_engine(std::time(nullptr));
-		std::shuffle(questions.begin(), questions.end(), random_engine);
+		std::random_device rd;
+		std::mt19937 randomGenerator(rd());
+		std::shuffle(questions.begin(), questions.end(), randomGenerator);
 
 		int total = 0; //Total score.
 
-		for (size_t i = 0; i < 10; ++i)
+		for (size_t i = 0; i < s_numQuestions; ++i)
 		{
 			total += questions[i].askQuestion(i + 1);
 		}
 
 		if (total >= s_lowPassingGrade) {
+			std::cout << "\n\n";
 			std::cout << "You scored " << total << " out of 100!\n";
 			printASCIIart(std::ifstream("quiz_passed.txt"));
 		}
 		else
 		{	
+			std::cout << "\n\n";
 			std::cout << "You scored " << total << " out of 100...\n";
 			std::cout << s_quizFailed; 
 		}
