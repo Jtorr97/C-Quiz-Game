@@ -18,3 +18,4 @@ Public/
 debug/
 release/
 public/
+*.db
