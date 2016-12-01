@@ -77,7 +77,7 @@ int Question::askQuestion(int num)
 	int score = 0;
 	std::cout << "\n";
 	if (num > 0)
-		std::cout << num << ". ";
+		std::cout << num << ".) ";
 	std::cout << question_text << "\n";
 	std::cout << "a. " << answer_1 << "\n";
 	std::cout << "b. " << answer_2 << "\n";
@@ -116,16 +116,16 @@ void generateQuiz(std::ifstream fin)
 		for (size_t i = 0; i < 10; ++i)
 		{
 			total += questions[i].askQuestion(i + 1);
-			std::cout << "Total score = " << total << '\n';
 		}
 
 		if (total >= s_lowPassingGrade) {
+			std::cout << "You scored " << total << " out of 100!\n";
 			printASCIIart(std::ifstream("quiz_passed.txt"));
 		}
 		else
-		{
+		{	
+			std::cout << "You scored " << total << " out of 100...\n";
 			std::cout << s_quizFailed; 
-			std::cin.get();
 		}
 	}
 	else
