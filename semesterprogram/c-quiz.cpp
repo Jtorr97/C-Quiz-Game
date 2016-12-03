@@ -34,19 +34,20 @@ private:
 	char correct_answer;
 };
 
-void printASCIIart(std::ifstream myfile);
-void generateQuiz(std::ifstream fin);
+void InitializeStrings(std::ifstream myfile);
+void QuizGame(std::ifstream fin);
 void load(std::istream& is, std::vector<Question>& questions);
+void Shuffle(std::vector<Question>& questions);
 
 int main()
 {
-	printASCIIart(std::ifstream ("welcome.txt"));
-	generateQuiz(std::ifstream ("quiz_data.txt")); //Load questions from .txt file
+	InitializeStrings(std::ifstream ("welcome.txt"));
+	QuizGame(std::ifstream ("quiz_data.txt")); 
 
 	return 0;
 }
 
-void printASCIIart(std::ifstream myfile)
+void InitializeStrings(std::ifstream myfile)
 {
 	std::string line;
 	if (myfile.is_open())
@@ -64,15 +65,13 @@ void printASCIIart(std::ifstream myfile)
 	}
 }
 
-void generateQuiz(std::ifstream fin)
+void QuizGame(std::ifstream fin)
 {
 	if (fin.is_open())
 	{
 		std::vector<Question> questions;
 		load(fin, questions);
-		std::random_device rd;
-		std::mt19937 randomGenerator(rd());
-		std::shuffle(questions.begin(), questions.end(), randomGenerator);
+		Shuffle(questions);
 
 		int total = 0; //Total score.
 
@@ -84,7 +83,7 @@ void generateQuiz(std::ifstream fin)
 		if (total >= s_lowPassingGrade) {
 			std::cout << "\n\n";
 			std::cout << "You scored " << total << " out of 100!\n";
-			printASCIIart(std::ifstream("quiz_passed.txt"));
+			InitializeStrings(std::ifstream("quiz_passed.txt"));
 		}
 		else
 		{
@@ -155,4 +154,11 @@ int Question::askQuestion(int num)
 		std::cin.get();
 	}
 	return score;
+}
+
+void Shuffle(std::vector<Question>& questions)
+{
+	std::random_device rd;
+	std::mt19937 randomGenerator(rd());
+	std::shuffle(questions.begin(), questions.end(), randomGenerator);
 }
