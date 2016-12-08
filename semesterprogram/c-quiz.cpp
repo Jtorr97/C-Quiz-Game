@@ -1,7 +1,3 @@
-// c-quiz.cpp : This is a program for a quiz game which assess's the user's knowledge of C++.
-// Questions are from JE Programming Logic and Design 8th edition, and http://www.cprogramming.com/quiz/?sb=14px
-// This program will utilize skills learned in the Fall 2016 Semester in COSC 1315 and outside of class.
-// Written by: Joshua Torres.
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -22,10 +18,14 @@ namespace {
 
 class Question {
 public:
-	int askQuestion(int num = -1);
+	void AskTheQuestions();
+	bool Run(std::ifstream& fin);
+	bool QuizGame(std::ifstream& fin);
+	bool ask();
 	friend std::istream& operator >> (std::istream& is, Question& ques);
 
 private:
+	std::vector<Question> questions;
 	std::string question_text;
 	std::string answer_1;
 	std::string answer_2;
@@ -34,67 +34,50 @@ private:
 	char correct_answer;
 };
 
-void InitializeStrings(std::ifstream myfile);
-void QuizGame(std::ifstream fin);
-void load(std::istream& is, std::vector<Question>& questions);
+void LoadData(std::istream& is, std::vector<Question>& questions);
 void Shuffle(std::vector<Question>& questions);
 
 int main()
 {
-	InitializeStrings(std::ifstream ("welcome.txt"));
-	QuizGame(std::ifstream ("quiz_data.txt")); 
+	Question Game;
+
+	Game.Run(std::ifstream("quiz_data.txt"));
 
 	return 0;
 }
 
-void InitializeStrings(std::ifstream myfile)
+void Question::AskTheQuestions()
 {
-	std::string line;
-	if (myfile.is_open())
+	for (int i = 0; i < s_numQuestions; ++i)
 	{
-		while (getline(myfile, line))
-		{
-			std::cout << line << '\n';
-		}
-		myfile.close();
-		std::cin.get();
-	}
-	else
-	{
-		std::cout << "Error: File not found!\n";
+		questions[i].ask();
 	}
 }
 
-void QuizGame(std::ifstream fin)
+bool Question::Run(std::ifstream& fin)
+{
+	if (QuizGame(fin)) {
+		AskTheQuestions();
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+
+}
+bool Question::QuizGame(std::ifstream& fin)
 {
 	if (fin.is_open())
 	{
-		std::vector<Question> questions;
-		load(fin, questions);
+		LoadData(fin, questions);
 		Shuffle(questions);
-
-		int total = 0; //Total score.
-
-		for (size_t i = 0; i < s_numQuestions; ++i)
-		{
-			total += questions[i].askQuestion(i + 1);
-		}
-
-		if (total >= s_lowPassingGrade) {
-			std::cout << "\n\n";
-			std::cout << "You scored " << total << " out of 100!\n";
-			InitializeStrings(std::ifstream("quiz_passed.txt"));
-		}
-		else
-		{
-			std::cout << "\n\n";
-			std::cout << "You scored " << total << " out of 100...\n";
-			std::cout << s_quizFailed;
-		}
+		return true;
 	}
 	else
 	{
 		std::cout << "Error: File not found!\n";
+		return false;
 	}
 	std::cin.get();
 }
@@ -117,19 +100,16 @@ std::istream& operator >> (std::istream& is, Question& ques)
 	return is;
 }
 
-void load(std::istream& is, std::vector<Question>& questions)
+void LoadData(std::istream& is, std::vector<Question>& questions)
 {
 	Question q;
 	while (is >> q)
 		questions.push_back(q);
 }
 
-int Question::askQuestion(int num)
+bool Question::ask()
 {
-	int score = 0;
 	std::cout << "\n";
-	if (num > 0)
-		std::cout << num << ".) ";
 	std::cout << question_text << "\n";
 	std::cout << "a. " << answer_1 << "\n";
 	std::cout << "b. " << answer_2 << "\n";
@@ -143,17 +123,17 @@ int Question::askQuestion(int num)
 
 	if (guess == correct_answer) {
 		std::cout << s_winMessage;
-		score = s_questionScore;
+		return true;
 		std::cin.get();
 		std::cin.get();
 	}
 	else
 	{
 		std::cout << s_loseMessage << correct_answer << ".\n";
+		return false;
 		std::cin.get();
 		std::cin.get();
 	}
-	return score;
 }
 
 void Shuffle(std::vector<Question>& questions)
