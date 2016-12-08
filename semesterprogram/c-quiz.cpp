@@ -8,21 +8,24 @@
 
 namespace {
 	const int s_questionScore = 10;  // Points rewarded for each correct answer.
-	const int s_lowPassingGrade = 70;	
+	const int s_failingGrade = 50;	
 	const int s_numQuestions = 10; 
 	const char* s_winMessage = "Correct!\n";
 	const char* s_loseMessage = "Incorrect, the correct answer was ";
 	const char* s_quizFailed = "Sorry, you failed... Better luck next time.";
 	const char* s_promptAnswer = "What is your answer?\n";
+	static int totalScore = 0;
 }
 
 class Question {
 public:
 	void AskTheQuestions();
+	void PrintResults();
 	bool Run(std::ifstream& fin);
-	bool QuizGame(std::ifstream& fin);
-	bool ask();
+	bool InitializeQuizGame(std::ifstream& fin);
+	int ask();
 	friend std::istream& operator >> (std::istream& is, Question& ques);
+
 
 private:
 	std::vector<Question> questions;
@@ -43,6 +46,8 @@ int main()
 
 	Game.Run(std::ifstream("quiz_data.txt"));
 
+	system("pause");
+
 	return 0;
 }
 
@@ -54,10 +59,18 @@ void Question::AskTheQuestions()
 	}
 }
 
-bool Question::Run(std::ifstream& fin)
+void Question::PrintResults()
 {
-	if (QuizGame(fin)) {
+	std::cout << "Your total score is " << totalScore << " out of 100!";
+	
+	
+}
+
+bool Question::Run(std::ifstream& quiz_data)
+{
+	if (InitializeQuizGame(quiz_data)) {
 		AskTheQuestions();
+		PrintResults();
 		return true;
 	}
 	else
@@ -66,11 +79,11 @@ bool Question::Run(std::ifstream& fin)
 	}
 
 }
-bool Question::QuizGame(std::ifstream& fin)
+bool Question::InitializeQuizGame(std::ifstream& quiz_data)
 {
-	if (fin.is_open())
+	if (quiz_data.is_open())
 	{
-		LoadData(fin, questions);
+		LoadData(quiz_data, questions);
 		Shuffle(questions);
 		return true;
 	}
@@ -107,8 +120,17 @@ void LoadData(std::istream& is, std::vector<Question>& questions)
 		questions.push_back(q);
 }
 
-bool Question::ask()
+int TrackScore()
 {
+	totalScore = totalScore + s_questionScore;
+
+	return totalScore;
+}
+
+int Question::ask()
+{
+	int score = 0;
+
 	std::cout << "\n";
 	std::cout << question_text << "\n";
 	std::cout << "a. " << answer_1 << "\n";
@@ -123,17 +145,17 @@ bool Question::ask()
 
 	if (guess == correct_answer) {
 		std::cout << s_winMessage;
-		return true;
+		TrackScore();
 		std::cin.get();
 		std::cin.get();
 	}
 	else
 	{
 		std::cout << s_loseMessage << correct_answer << ".\n";
-		return false;
 		std::cin.get();
 		std::cin.get();
 	}
+	return score;
 }
 
 void Shuffle(std::vector<Question>& questions)
