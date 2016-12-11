@@ -42,7 +42,6 @@ bool AskToPlayAgain();
 
 int main()
 {
-	int s_totalScore = 0;
 	Question Quiz;
 	
 	bool playAgain = false;
@@ -143,7 +142,7 @@ std::istream& operator >> (std::istream& is, Question& ques)
 int TrackScore()
 {
 	const int s_questionScore = 10;  // Points rewarded for each correct answer.
-	s_totalScore = s_totalScore + s_questionScore;
+	s_totalScore += s_questionScore;
 	return s_totalScore;
 }
 
@@ -180,7 +179,7 @@ int Question::askQuestion(int num)
 
 bool AskToPlayAgain()
 {
-	std::cout << "Do you wanna play again? ";
+	std::cout << "Do you wanna play again? \n";
 	std::string Response = " ";
 	std::getline(std::cin, Response);
 
