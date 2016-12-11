@@ -1,3 +1,459 @@
+What is the correct value to return to the operating system upon the successful completion of a program?
+-1
+1
+0
+Programs do not return a value
+c
+
+What is the only function all C++ programs must contain?
+start()
+system()
+main()
+program()
+c
+
+What punctuation is used to signal the beginning and end of code blocks?
+{ }
+->
+BEGIN and END
+( and )
+a
+
+What punctuation ends most lines of C++ code?
+.
+;
+:
+'
+b
+
+Which of the following is a correct comment?
+*/ Comments */
+** Comment **
+/* Comment */
+{ Comment }
+c
+
+Which of the following is not a correct variable type?
+float
+real
+int
+double
+b
+
+Which of the following is the correct operator to compare two variables?
+:=
+=
+equal
+==
+d
+
+Which of the following is the boolean operator for logical-and?
+&
+&&
+|
+|&
+b
+
+Which of the following shows the correct syntax for an if statement?
+if expression
+if { expression
+if ( expression )
+expression if
+c
+
+What is the final value of x when the code int x; for(x=0; x<10; x++) {} is run?
+10
+9
+0
+1
+a
+
+When does the code block following while(x<100) execute?
+When x is less than one hundred
+When x is greater than one hundred
+When x is equal to one hundred
+While it wishes
+a
+
+Which is not a loop structure?
+For
+Do while
+While
+Repeat Until
+d
+
+How many times is a do while loop guaranteed to loop?
+0
+Infinitely
+1
+variable
+c
+
+Which is not a proper prototype?
+int funct(char x, char y);
+double funct(char x)
+void funct();
+char x();
+b
+
+What is the return type of the function with prototype: "int func(char x, float v, double t);"
+char
+int
+float
+double
+b
+
+Which of the following is a valid function call (assuming the function exists)?
+funct;
+funct x, y;
+funct();
+int funct();
+c
+
+Which of the following is a complete function?
+int funct();
+int funct(int x) {return x=x+1;}
+void funct(int) {cout&tl;<"Hello"}
+void funct(x) {cout<<"Hello"}
+b
+
+Which follows the case statement?
+:
+;
+-
+A newline
+a
+
+What is required to avoid falling through from one case to the next?
+end;
+break;
+Stop;
+A semicolon.
+b
+
+What keyword covers unhandled possibilities?
+all
+contingency
+default
+other
+c
+
+Which of the following is the proper declaration of a pointer?
+int x;
+int &x;
+ptr x;
+int *x;
+d
+
+Which of the following gives the memory address of integer variable a?
+*a;
+a;
+&a;
+address(a);
+c
+
+Which of the following gives the memory address of a pointer a?
+a;
+*a;
+&a;
+address(a);
+a
+
+Which of the following gives the value stored at the address pointed to by the pointer a?
+a;
+val(a);
+*a;
+&a;
+c
+
+Which of the following is the proper keyword to allocate memory?
+new
+malloc
+create
+value
+a
+
+Which of the following is the proper keyword to deallocate memory?
+free
+delete
+clear
+remove
+b
+
+Which of the following accesses a variable in structure b?
+b->var;
+b.var;
+b-var;
+b>var;
+b
+
+Which of the following accesses a variable in structure *b?
+b->var;
+b.var;
+b-var;
+b>var;
+a
+
+Which of the following is a properly defined struct?
+struct {int a;}
+struct a_struct {int a;}
+struct a_struct int a;
+struct a_struct {int a;};
+d
+
+Which properly declares a variable of struct foo?
+struct foo;
+foo var;
+foo;
+int foo;
+b
+
+Which of the following correctly declares an array?
+int anarray[10];
+int anarray;
+anarray{10};
+array anarray[10];
+a
+
+What is the index number of the last element of an array with 29 elements?
+29
+28
+0
+Programmer-defined
+b
+
+Which of the following is a two-dimensional array?
+array anarray[20][20];
+int anarray[20][20];
+int array[20, 20];
+char array[20];
+b
+
+Which of the following correctly accesses the seventh element stored in foo, an array with 100 elements?
+foo[6];
+foo[7];
+foo(7);
+foo;
+a
+
+Which of the following gives the memory address of the first element in array foo, an array with 100 elements?
+foo[0];
+foo;
+&foo;
+foo[1];
+b
+
+
+Which of the following is a static string?
+Static String
+"Static String"
+'Static String'
+char string[100];
+b
+
+What character ends all strings?
+'.'
+' '
+'\0'
+'\n'
+c
+
+Which of the following reads in a string named x with one hundred characters?
+cin.getline(x, 100, '\n');
+cin.getline(100, x, '\n');
+readline(x, 100, '\n');
+read(x);
+a
+
+Which of the following functions compares two strings?
+compare();
+stringcompare();
+cmp();
+strcmp();
+d
+
+Which of the following adds one string to the end of another?
+append();
+stringadd();
+strcat();
+stradd();
+c
+
+Which of the following classes handlers file input?
+ofstream
+ifstream
+instream
+inputfile
+b
+
+Which of the following is not a valid ofstream argument?
+ios::app
+ios::trunc
+ios::noreplace
+ios::create
+d
+
+What does ios::ate mean as an argument to ofstream?
+Open file, but do not create.
+Open file, create.
+Open file for read access only.
+Open file, set the position to the end.
+d
+
+How would you output to an open file named a_file?
+a_file.out("Output");
+a_file="Output";
+a_file<<"Output";
+a_file.printf("Output"); 
+c
+
+What header file contains C++ file I/O instructions?
+iostream.h
+fstream.h
+infstream.h
+outstream.h
+b
+
+Which header file do you need to include to use typecasting? 
+iostream.h
+ctype.h
+math.h
+None
+d
+
+Which is a valid typecast?
+a(char);
+char:a;
+(char)a;
+to(char, a);
+c
+
+Why can typecasting be dangerous?
+Some conversions are not defined, such as char to int.
+You might permanently change the value of the variable.
+You might temporarily lose part of the data - such as truncating a float when typecasting to an int.
+There are no dangers.
+c
+
+Which is a good use for typecasting?
+To allow division of two integers to return a decimal value.
+To allow your program to use nothing but integers.
+To change the return type of a function.
+To swap variables rapidly.
+a
+
+Which conversion is not possible?
+int to float
+float to int
+char to float
+All are possible
+d
+
+What purpose do classes serve?
+data encapsulation
+providing a convenient way of modeling real-world objects
+simplifying code reuse
+all of the above
+d
+
+Which is not a protection level provided by classes in C++?
+protected
+hidden
+private
+public
+b
+
+What value must a destructor return?
+A pointer to the class.
+An object of the class.
+A status code determining whether the class was destructed correctly
+Destructors do not return a value.
+d
+
+Which of the following is a valid class declaration? 
+class A { int x; };
+class B { } 
+public class A { }
+object A { int x; }; 
+a
+
+Which functions will every class contain?
+None
+Constructor
+Destructor
+Both a constructor and a destructor
+d
+
+What does the inline keyword do?
+Indicates a function declaration
+Tells the compiler to use the function only within the same source code file
+Causes all function calls to be replaced by the code from the function
+Allows one-line function declarations
+c
+
+Why would you want to use inline functions?
+To decrease the size of the resulting program
+To increase the speed of the resulting program
+To simplify the source code file
+To remove unnecessary functions
+b
+
+Which of the following is a limit on inline functions?
+Inline functions cannot return a value. 
+Inline functions must resturn a value.
+Inline functions must be less than ten lines.
+The compiler may choose to ignore an inline directive.
+d
+
+Which of the following is a valid inline for function foo? 
+inline void foo() {}
+void foo() inline {} 
+inline:void foo() {} 
+None of the above
+a
+
+How can you ensure that an inline function isn't inlined for a particular function call for function foo?
+unline x(); 
+noexpand x(); 
+x(); 
+This is not possible on a case-by-case basis
+d
+
+What variables stores the number of arguments to a program?
+argc
+argv
+C count
+arglen
+d
+
+What is argv[0]?
+The number of arguments to the program
+The name of the program
+The first argument to the program
+This syntax is illegal
+b
+
+What type is argv?
+char * 
+int
+char ** 
+It's not a variable
+c
+
+In what order do the two command line variables appear in the definition of main? 
+Count then argument array
+Argument array then count
+They don't appear in the definition of main 
+There is only one argument.
+a
+
+What does the argument count variable store? 
+the number of arguments 
+the number of arguments plus one
+the number of arguments minus one 
+The total size of the argument array
+b
+
 What command prints something to the screen?
 cin
 cout
@@ -26,75 +482,12 @@ file
 command
 b
 
-What punctuation ends most lines of code?
-.
-;
-:
-'
-b
-
-Which of the following is a correct comment?
-*/ Comments */
-** Comment **
-/* Comment */
-{ Comment }
-c
-
-Which of the following is the boolean operator for logical-and?
-&
-|
-&&
-|&
-c
-
-Which of the following shows the correct syntax for an if statement?",
-if expression
-if {expression
-if (expression)
-expression if
-c
-
-How many times is a do while loop guaranteed to loop?
-1
-0
-Infinitely
-Variable
-a
-
 A subscipt is a(n) __________ .
 element in an array
 alternate name for an array
 number that represents the highest value stored within an array
 number that indicates the position of the particular item in an array
 d
-
-Which of the following correctly declares an array?
-int anarray[10];
-int anarray
-anarray{10};
-array anarray[10];
-a
-
-What is the index number of the last element of an array with 29 elements?
-29
-28
-0
-Programmer-defined
-b
-
-Which is not a loop structure?
-for
-do while
-while
-repeat until
-d
-
-When does the code block following while(x < 100) execute?
-When x is less than one hundred
-When x is greater than one hundred
-When x is equal to one hundred
-While it wishes
-a
 
 Most programmers use a for loop __________ .
 for every loop they write
@@ -108,13 +501,6 @@ digesting
 incrementing
 decrementing
 resetting
-b
-
-What is required to avoid falling through from one case to the next?
-end;
-break;
-Stop;
-A semicolon
 b
 
 A __________ is a variable that you set to indicate whether some event has occured.
