@@ -18,4 +18,4 @@ Public/
 debug/
 release/
 public/
-*.db
+*.VC.db
