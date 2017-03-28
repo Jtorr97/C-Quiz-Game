@@ -1,4 +1,4 @@
-#C++ Quiz Game
+# C++ Quiz Game
 School project for Programming 101 class.
 
 This is a C++ console program which is a quiz game, testing over the C++ langugage. 
